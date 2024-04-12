@@ -6,6 +6,7 @@ function reg(str, ptrn) {
   }
 
   let isStarred = false
+  let patternStorage  = {}
 
   const specialChars = ['.', '*']
   let isMatched = true
@@ -15,7 +16,6 @@ function reg(str, ptrn) {
     const ptrnChar = isStarred
       ? specialChars[1]
       : ptrn[ind]
-    console.log(char, ptrnChar)
 
     if (ptrnChar === specialChars[0]) {
       if (ptrn[ind + 1] === specialChars?.[1]) {
@@ -51,7 +51,13 @@ function reg(str, ptrn) {
 
   return isMatched
 }
+const TestCases = [
 
-console.log(
-  reg('abccccc', 'abc*')
-)
+  [["aab", "c*a*b"], true],
+  [['abccccc', 'abc*'], true]
+];
+
+TestCases.forEach((testCase) => {
+  const output = reg(...testCase[0])
+  console.log('pass=>', output === testCase[1])
+})
