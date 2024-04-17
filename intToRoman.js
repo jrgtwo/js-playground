@@ -61,6 +61,39 @@
 //   return numerals.join('')
 // }
 
+const intToRoman = (int) => {
+
+  const numMap = [
+    ['M', 1000],
+    ['CM', 900],
+    ['D', 500],
+    ['CD', 400],
+    ['C', 100],
+    ['XC', 90],
+    ['L', 50],
+    ['XL', 40],
+    ['X', 10],
+    ['IX', 9],
+    ['V', 5],
+    ['IV', 4],
+    ['I', 1]
+  ]
+  let toReduce = int
+  let convertedNumeral = []
+
+  while (toReduce >= 0) {
+
+    const currSymbolPair = numMap.find(([_, value]) => toReduce >= value)
+    if (!currSymbolPair) {
+      break
+    }
+
+    convertedNumeral.push(currSymbolPair[0])
+    toReduce -= currSymbolPair[1]
+  }
+
+  return convertedNumeral.join('')
+}
 
 console.log(intToRoman(3987))
 console.log(intToRoman(3487))
