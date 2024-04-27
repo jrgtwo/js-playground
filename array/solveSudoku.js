@@ -1,4 +1,4 @@
-const addItem = (data, item, type) => {
+const addItem = (data, item) => {
   if (data?.has(item)) {
     return false
   } else {
@@ -7,17 +7,7 @@ const addItem = (data, item, type) => {
   }
 }
 
-const validate = (dataArr, item, type) => {
-  return dataArr.find((data) => {
-    if (!addItem(data, item, 'square')) return false
-    return true
-  })
-
-}
-
-const backTrack = () => {
-
-}
+const backtrack = () => { }
 
 const solveSudoku = (board) => {
 
@@ -84,10 +74,9 @@ const solveSudoku = (board) => {
 
       let match
       let currExists = board[rowId][j]
-      let curr = currExists === '.' ? 0 : currExists
+      let curr = currExists === '.' ? 0 : parseInt(currExists)
 
       board[rowId][j] = '.'
-
       inner: for (let k = curr + 1; k < 10; k++) {
         if (
           !squares[square].has(`${k}`)
@@ -104,7 +93,7 @@ const solveSudoku = (board) => {
       if (match) {
         placeholderStack.push([square, rowId, col])
 
-        board[rowId][j] = match
+        board[rowId][j] = `${match}`
         addItem(squares[square], `${match}`, 'square')
         addItem(rows[rowId], `${match}`, 'row')
         addItem(columns[col], `${match}`, 'col')
@@ -128,7 +117,7 @@ const solveSudoku = (board) => {
     rowId++
   }
 
-  return true
+  return board
 }
 
 const validBoard = [
@@ -142,16 +131,16 @@ const validBoard = [
   [".", ".", ".", "4", "1", "9", ".", ".", "5"],
   [".", ".", ".", ".", "8", ".", ".", "7", "9"]]
 
-// export const invalidBoard = [
-//   ["8", "3", ".", ".", "7", ".", ".", ".", "."]
-//   , ["6", ".", ".", "1", "9", "5", ".", ".", "."]
-//   , [".", "9", "8", ".", ".", ".", ".", "6", "."]
-//   , ["8", ".", ".", ".", "6", ".", ".", ".", "3"]
-//   , ["4", ".", ".", "8", ".", "3", ".", ".", "1"]
-//   , ["7", ".", ".", ".", "2", ".", ".", ".", "6"]
-//   , [".", "6", ".", ".", ".", ".", "2", "8", "."]
-//   , [".", ".", ".", "4", "1", "9", ".", ".", "5"]
-//   , [".", ".", ".", ".", "8", ".", ".", "7", "9"]]
+export const invalidBoard = [
+  ["8", "3", ".", ".", "7", ".", ".", ".", "."]
+  , ["6", ".", ".", "1", "9", "5", ".", ".", "."]
+  , [".", "9", "8", ".", ".", ".", ".", "6", "."]
+  , ["8", ".", ".", ".", "6", ".", ".", ".", "3"]
+  , ["4", ".", ".", "8", ".", "3", ".", ".", "1"]
+  , ["7", ".", ".", ".", "2", ".", ".", ".", "6"]
+  , [".", "6", ".", ".", ".", ".", "2", "8", "."]
+  , [".", ".", ".", "4", "1", "9", ".", ".", "5"]
+  , [".", ".", ".", ".", "8", ".", ".", "7", "9"]]
 
 // export const anotherValidBoard = [
 //   [".", ".", ".", ".", ".", ".", ".", ".", "."],
@@ -166,6 +155,6 @@ const validBoard = [
 // ]
 
 console.log(solveSudoku(validBoard))
-// console.log(isValidSudoku(invalidBoard))
+console.log(solveSudoku(invalidBoard))
 // console.log(isValidSudoku(anotherValidBoard))
 
