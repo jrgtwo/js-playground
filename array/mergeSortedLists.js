@@ -1,5 +1,5 @@
 
-var mergeKLists = function (lists) {
+var mergeKLists1 = function (lists) {
   let results = []
 
   lists.forEach((list) => {
@@ -22,4 +22,17 @@ var mergeKLists = function (lists) {
   return results
 };
 
-console.log(mergeKLists([[1, 4, 5], [1, 3, 4], [2, 6]]))
+const mergeKLists2 = (lists) => {
+
+  let results = []
+  lists.forEach((list) => {
+    results = [...results, ...list]
+  })
+
+  return results.sort((a, b) => a - b)
+
+}
+
+performance.measure
+console.log(mergeKLists1([[1, 4, 5], [1, 3, 4], [2, 6]]))
+console.log(mergeKLists2([[1, 4, 5], [1, 3, 4], [2, 6]]))
