@@ -456,16 +456,16 @@ const oddEvenJumps = (arr) => {
   const goodOdd = new Map()
   const goodEven = new Map()
 
-  goodOdd.set(arr.length - 1, [arr.length - 1, arr.length - 1])
-  goodEven.set(arr.length - 1, [arr.length - 1, arr.length - 1])
+  goodOdd.set(arr.length - 1, arr.length - 1)
+  goodEven.set(arr.length - 1, arr.length - 1)
 
   for (let i = arr.length - 2; i > -1; i--) {
-    if (odd[i] !== undefined && goodEven.get(odd[i])?.[1]) {
-      goodOdd.set(i, [i, odd[i]])
+    if (odd[i] !== undefined && goodEven.get(odd[i])) {
+      goodOdd.set(i, odd[i])
     }
     if (i === 0) break
-    if (even[i] !== undefined && goodOdd.get(even[i])?.[1]) {
-      goodEven.set(i, [i, even[i]])
+    if (even[i] !== undefined && goodOdd.get(even[i])) {
+      goodEven.set(i, even[i])
     }
   }
 
