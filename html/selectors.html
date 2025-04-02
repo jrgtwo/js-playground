@@ -4,16 +4,118 @@
 
 <body>
   <section class="todo-wrapper">
-    <form class="todo-form">
+    <form id="todo-form" class="todo-form" action="#submit">
       <input type="text" name="todo-input" />
-      <button>Add Todo</button>
+      <input type="submit" name="todo-submit" value="Add a Task" />
     </form>
-    <menu class="todo-list">
-      <li><a href="#some-todo1">Some Todo1</a></li>
-      <li><a href="#some-todo2">Some Todo2</a></li>
-      <li><a href="#some-todo3">Some Todo3</a></li>
-    </menu>
+    <menu id="todo-list"></menu>
   </section>
+  <script>
+    window.addEventListener('load', () => {
+      const todoList = [];
+      const formElem = document.getElementById('todo-form')
+      const formInputs = formElem.getElementsByTagName('input')
+
+      const formInput = formInputs['todo-input']
+      const formSubmitButton = formInputs['todo-submit']
+
+      const todoListElem = document.getElementById('todo-list')
+
+      const renderTodoList = () => {
+        const output = []
+        todoList.map((item) => {
+          output.push(item)
+        })
+        return output.join('')
+      }
+
+      const renderTodoItem = (value) => {
+        const hashLink = value.replaceAll(' ', '-').toLowerCase()
+        return (
+          `<li>
+            <a href="#${hashLink}">${value}</a>
+          </li>`
+        )
+      };
+
+      const doSubmit = (value) => {
+        todoList.push(renderTodoItem(value))
+        todoListElem.innerHTML = renderTodoList()
+        formInput.value = ''
+      };
+
+      const validateInput = (value) => {
+        if (value.length < 1) return
+        return true
+      };
+
+      // disable submit event to favor button click
+      formInput.addEventListener('submit', (event) => {
+        event.preventDefault();
+      });
+
+      formSubmitButton.addEventListener('click', (event) => {
+        event.preventDefault()
+        const inputValue = formInput.value
+        const isValid = validateInput(inputValue)
+        if (!isValid) return
+
+        doSubmit(inputValue)
+        // trigger any on complete listener logic
+      });
+
+      // notGreatQuerySelector :)
+      getByQuerySelector = (selector, root) => {
+        if (selector?.length === 0) return false
+
+        const splitSelectors = selector.split(' ')
+
+        if (splitSelectors.length === 1) {
+          const selector = splitSelectors[0]
+          if (selector.startsWith('.')) {
+            return Array.from(root.getElementsByClassName(selector.slice(1)))
+          } else if (selector.startsWith('#')) {
+            return Array.from(root.getElementById(selector.slice(1)))
+          } else {
+            const isClass = selector.includes('.')
+            const isId = selector.includes('#')
+            const matches = []
+
+            if (isClass) {
+              const splitSelector = selector.split('.')
+              const tagList = root.getElementsByTagName(splitSelector[0])
+              for (const tag of tagList) {
+                const tagClassList = tag.classList
+                if (tagClassList.contains(splitSelector[1])) {
+                  matches.push(tag)
+                }
+              }
+              return matches
+            } else if (isId) {
+              const splitSelector = selector.split('#')
+              const tagList = root.getElementsByTagName(splitSelector[0])
+              for (const tag of tagList) {
+                const tagIdMatch = tag.getAttribute('id')
+                if (tagIdMatch === splitSelector[1]) {
+                  return [tag]
+                }
+              }
+              return false
+            } else {
+              return Array.from(root.getElementsByTagName(selector))
+            }
+          }
+        }
+      }
+
+      const byClass = getByQuerySelector('form.todo-form', document)
+      const byId = getByQuerySelector('form#todo-form', document)
+      const byTag = getByQuerySelector('form', document)
+      const standard = document.querySelectorAll('form.todo-form')
+
+      console.log(byClass[0], byId[0], byTag[0], standard[0])
+    })
+  </script>
 </body>
 
 </html>

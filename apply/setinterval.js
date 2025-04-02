@@ -1,8 +1,8 @@
-// const setCancellableInterval = (cb, dur, ...args) => {
+const setCancellableInterval = (cb, dur, ...args) => {
 
-//   const timerId = setInterval(() => cb.apply(null, args), dur)
-//   return () => clearInterval(timerId)
-// }
+  const timerId = setInterval(() => cb.apply(null, args), dur)
+  return () => clearInterval(timerId)
+}
 
 // let i = 0;
 
