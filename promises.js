@@ -15,25 +15,46 @@
 // })
 
 
-async function test() {
-  try {
-    const one = await new Promise((resolve) => setTimeout(() => {
-      resolve(1)
-    }, 1000))
+// async function test() {
+//   try {
+//     const one = await new Promise((resolve) => setTimeout(() => {
+//       resolve(1)
+//     }, 1000))
 
-    const two = await new Promise((resolve, reject) => setTimeout(() => {
-      resolve(2)
-    }, 1000))
+//     const two = await new Promise((resolve, reject) => setTimeout(() => {
+//       resolve(2)
+//     }, 1000))
 
-    return [one, two]
+//     return [one, two]
 
-  } catch (err) {
-    return err
-  }
-}
+//   } catch (err) {
+//     return err
+//   }
+// }
 
-const boom = await test()
+// const boom = await test()
 
-console.log(boom)
-const bam = await test()
-console.log('hi')
+// console.log(boom)
+// const bam = await test()
+// console.log('hi')
+
+
+// const myPromise = () => new Promise((res, rej) => {
+//   setTimeout(() => {
+//     res(100)
+//   }, 2000)
+// })
+
+// myPromise().then((res) => {
+//   console.log(res)
+// })
+
+(async () => {
+  const res = await new Promise((res, rej) => {
+    setTimeout(() => {
+      res(100)
+    }, 2000)
+  })
+
+  console.log(res)
+})()

@@ -1,5 +1,4 @@
 class Store {
-
   #state
 
   constructor(initialState) {
@@ -9,7 +8,6 @@ class Store {
   get(id) {
     return this.#state.get(id)
   }
-
 
   set(id, data) {
     return this.#state.set(id, data)
@@ -22,7 +20,6 @@ class Store {
   getAll() {
     return [...this.#state]
   }
-
 }
 
 const myStore = new Store();
